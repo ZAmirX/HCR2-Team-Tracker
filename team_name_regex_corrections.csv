@@ -1,0 +1,14 @@
+Pattern¦Correct name
+^.*SE.*BG.*$¦SE BG
+^.*USA$¦USA
+^.*CZE.*SVK.*$¦CZE & SVK
+^.*EC.*HuckIeberry$¦EC~Huckleberry
+^.*EC.*Huckleberry$¦EC~Huckleberry
+^.*PRIDE.*UA$¦PRIDE UA
+^.*Star.*ep.*b.*$¦Star Pertsy
+^.*SB.*CREW$¦(SB) CREW
+^.*UNIVERSE.*3.*$¦UNIVERSE ™3
+^.*PRI.*E.*LJA$¦PRIDE UA
+^.*ESPA.*///3$¦ESPANA M93///3
+^.*Top.*Racing$¦Top Racing
+^.*GEN.*CHILE.*$¦GEN CHILE
