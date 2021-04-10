@@ -1,0 +1,1 @@
+This folder contains tesseract training data for creating the HCR2 language that can be more easily read by Tesseract.
