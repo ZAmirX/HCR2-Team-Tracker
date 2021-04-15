@@ -313,7 +313,7 @@ def get_time_by_team(team_name, tz_string):
     # Search  by looking for names that contain the searched name and add the team to the list of matching_teams  
     matching_teams = []
     for team in teamEndTimes:
-        if team_name in team["name"]:
+        if team_name.lower() in team["name"].lower():
             matching_teams.append(team)
 
     # If any teams were found in the name search, generate the output string
