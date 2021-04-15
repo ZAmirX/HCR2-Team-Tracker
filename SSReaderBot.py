@@ -753,7 +753,9 @@ async def on_message(message):
                                 # Use a placeholder for the image in the list since the actual one can't be downloaded
                                 img_list.append(False)
                                 # Let the user know the message can't be downloaded
-                                await message.channel.send(f"Could not download image {imageNum}.")
+                                out_string = f"Could not download image {imageNum}."
+                                embed_block = discord.Embed(description=out_string, color=embed_failure_color)
+                                await message.channel.send(embed=embed_block)
                             # Convert the image into an OpenCV image
                             data = io.BytesIO(await response.read())
                             img = cv2.imdecode(np.frombuffer(data.read(), np.uint8), 1)
@@ -778,14 +780,9 @@ async def on_message(message):
                         team_list.append(l)
                     except Exception as e:
                         # If an individual screenshot had any issues, this is shown to the user
-                        if e == "Uneven rows were found.":
-                            out_string = f"Problem with screenhot {i}: {e}"
-                            embed_block = discord.Embed(description=out_string, color=embed_failure_color)
-                            await message.channel.send(embed=embed_block)
-                        else:
-                            out_string = f"Problem with screenhot {i}: Error reading screenshot"
-                            embed_block = discord.Embed(description=out_string, color=embed_failure_color)
-                            await message.channel.send(embed=embed_block)
+                        out_string = f"Problem with screenhot {i}: {e}"
+                        embed_block = discord.Embed(description=out_string, color=embed_failure_color)
+                        await message.channel.send(embed=embed_block)
                 # Flatten the team list so that each team entry is a separate item in one list
                 team_list = [item for sublist in team_list for item in sublist]
                 
@@ -804,7 +801,8 @@ async def on_message(message):
                 position_nums = []
                 for team in team_list:
                     position_nums.append(int(team["position"]))
-                await message.channel.send(consectutive_group_to_string(position_nums))
+                embed_block = discord.Embed(description=consectutive_group_to_string(position_nums), color=embed_success_color)
+                await message.channel.send(embed=embed_block)
                 
                 # Get the data from the spreadsheet into a separate list of dictionaries
                 teamEndTimes = get_team_end_times_from_file()
