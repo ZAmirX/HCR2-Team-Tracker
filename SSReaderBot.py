@@ -185,6 +185,19 @@ async def SS_extract_text(imgcv):
                 NameRowContours, _ = cv2.findContours(names_img_rows, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
                 # Reverse to get each row from top to bottom rather than bottom to top
                 NameRowContours.reverse()
+                # Generate a list of bad row contours to remove
+                rowCntsToRemove = []
+                for row in NameRowContours:
+                    # Get the row's height from the top and bottom most pixel y-axis coordinates
+                    rowTop = tuple(row[row[:, :, 1].argmin()][0])
+                    rowBottom = tuple(row[row[:, :, 1].argmax()][0])
+                    rowHeight = rowBottom[1] - rowTop[1]
+                    # Add to the list of contours to remove if the row's height is less than 2% of the image's total height
+                    if (rowHeight/height)*100 < 2:
+                        rowCntsToRemove.append(row)
+                # Remove each row contour that has been marked for removal
+                for removeRow in rowCntsToRemove:
+                    NameRowContours.remove(removeRow)
 
                 # Create the blank mask to be written to with all contours to be removed
                 cleanupMask = np.ones(names_img.shape[:2], dtype="uint8") * 255
